@@ -1,0 +1,25 @@
+ import { useEffect } from "react";
+  import {
+ auth,
+  createUserDoc,
+  signInWithGooglePopup,
+  signInWithGoogleRedirect,
+} from "../../utils/firebase/firebase.utils";
+ import { getRedirectResult } from "firebase/auth";
+  
+ useEffect(() => {
+   async function dataFetch() {
+     const res = await getRedirectResult(auth);
+     if (res) {
+       const userRef = await createUserDoc(res.user);
+     }
+   }
+
+   dataFetch();
+ }, []);
+
+    const logGoogleRedirect = async () => {
+     const { user } = await signInWithGoogleRedirect();
+   };
+
+   <button onClick={logGoogleRedirect}>Sign In with Google Redirect</button> 

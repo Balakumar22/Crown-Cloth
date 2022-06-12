@@ -1,0 +1,28 @@
+table {
+  width: 100%;
+  font-size: 18px;
+}
+
+thead,
+tbody,
+tr {
+  width: 100%;
+}
+
+thead th {
+  height: 80px;
+  border-bottom: 1px solid #000;
+}
+
+.product-img {
+  width: 30%;
+}
+
+.product-img img {
+  width: 30%;
+}
+
+.quantity {
+  display: flex;
+  gap: 5px;
+}
