@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import "./Directory.styles.scss";
 import DirectoryItem from "../DirectoryItem/DirectoryItem.component";
 

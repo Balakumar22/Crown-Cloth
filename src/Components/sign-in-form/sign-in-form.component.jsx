@@ -27,10 +27,7 @@ const SignIn = ({ googlePop }) => {
     event.preventDefault();
 
     try {
-      const userAuth = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      await signInAuthUserWithEmailAndPassword(email, password);
 
       //  const userDoc=await
 
@@ -52,7 +49,7 @@ const SignIn = ({ googlePop }) => {
   const signInWithGoogle = async () => {
     console.log("In");
     const { user } = await signInWithGooglePopup();
-    const userRef = await createUserDoc(user);
+    await createUserDoc(user);
   };
 
   const resetFormFields = () => {

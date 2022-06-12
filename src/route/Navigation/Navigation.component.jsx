@@ -1,6 +1,6 @@
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import { Fragment, useContext } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from "../../asserts/crown.svg";
 import { UserContext } from "../../context/user.context";
 import { CartContext } from "../../context/cart.context";
@@ -17,9 +17,9 @@ const Navigation = () => {
   const { currentUser } = useContext(UserContext);
   const { isCartOpen, setCart } = useContext(CartContext);
 
-  const toggleCart = () => {
-    setCart(isCartOpen ? false : true);
-  };
+  // const toggleCart = () => {
+  //   setCart(isCartOpen ? false : true);
+  // };
 
   return (
     <Fragment>

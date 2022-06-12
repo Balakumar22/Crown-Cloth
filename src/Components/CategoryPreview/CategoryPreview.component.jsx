@@ -3,8 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import "./category-preview.styles.scss";
 
 const CategoryPreview = ({ title, products }) => {
-  const navigate = useNavigate();
-
   return (
     <div className="category-preview-container">
       <h2>
