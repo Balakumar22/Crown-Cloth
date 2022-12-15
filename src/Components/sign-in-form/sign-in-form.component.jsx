@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import {
-  signInWithGooglePopup,
-  createUserDoc,
-  signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils";
+  googleSignInStart,
+  emailSignInStart,
+} from "../../store/user/user.action";
+
 import Button, { BUTTON_TYPES } from "../Button/button.component";
 import FormInput from "../FormInput/FormInput.component";
 import "./sign-in-form.styles.scss";
@@ -14,6 +16,7 @@ const defualtFieldValues = {
 };
 
 const SignIn = ({ googlePop }) => {
+  const dispatch = useDispatch();
   const [formField, setFormField] = useState(defualtFieldValues);
 
   const { email, password } = formField;
@@ -27,7 +30,8 @@ const SignIn = ({ googlePop }) => {
     event.preventDefault();
 
     try {
-      await signInAuthUserWithEmailAndPassword(email, password);
+      // await signInAuthUserWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
 
       //  const userDoc=await
 
@@ -47,9 +51,10 @@ const SignIn = ({ googlePop }) => {
   };
 
   const signInWithGoogle = async () => {
-    console.log("In");
-    const { user } = await signInWithGooglePopup();
-    await createUserDoc(user);
+    dispatch(googleSignInStart());
+    // console.log("In");
+    // const { user } = await signInWithGooglePopup();
+    // await createUserDoc(user);
   };
 
   const resetFormFields = () => {
