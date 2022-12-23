@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { AuthError, AuthErrorCodes } from "firebase/auth";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import {
@@ -15,18 +16,18 @@ const defualtFieldValues = {
   password: "",
 };
 
-const SignIn = ({ googlePop }) => {
+const SignIn = () => {
   const dispatch = useDispatch();
   const [formField, setFormField] = useState(defualtFieldValues);
 
   const { email, password } = formField;
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormField({ ...formField, [name]: value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
@@ -37,11 +38,11 @@ const SignIn = ({ googlePop }) => {
 
       resetFormFields();
     } catch (err) {
-      switch (err.code) {
-        case "auth/user-not-found":
+      switch ((err as AuthError).code) {
+        case AuthErrorCodes.USER_DELETED:
           alert("no user associated with this email");
           break;
-        case "auth/wrong-password":
+        case AuthErrorCodes.INVALID_PASSWORD:
           alert("incorrect password for email");
           break;
         default:

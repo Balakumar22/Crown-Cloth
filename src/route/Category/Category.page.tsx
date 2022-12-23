@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 // import { useContext } from "react";
 import { useParams } from "react-router-dom";
@@ -12,8 +12,14 @@ import {
 } from "../../store/categories/categories.selector";
 import Spinner from "../../Components/Spinner/Spinner.component";
 
+type CategoryRouteParam = {
+  category: string;
+};
+
 const Category = () => {
-  const { category } = useParams();
+  const { category } = useParams<
+    keyof CategoryRouteParam
+  >() as CategoryRouteParam;
   // const { categories } = useContext(ProductContext);
   const categories = useSelector(selectCategoriesMap);
   const isLoading = useSelector(selectCategoriesIsLoading);

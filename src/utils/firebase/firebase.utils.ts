@@ -9,6 +9,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  User,
+  NextOrObserver,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -19,7 +21,9 @@ import {
   collection,
   writeBatch,
   query,
+  QueryDocumentSnapshot,
 } from "firebase/firestore";
+import { Category } from "../../store/categories/categories.type";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -51,7 +55,20 @@ export const signInWithGoogleRedirect = () =>
 
 const db = getFirestore();
 
-export const createUserDoc = async (user, addInfo = {}) => {
+export type AdditionalInfo = {
+  displayName?: string;
+};
+
+export type UserData = {
+  createdAt: Date;
+  displayName: string;
+  email: string;
+};
+
+export const createUserDoc = async (
+  user: User,
+  addInfo = {} as AdditionalInfo
+): Promise<void | QueryDocumentSnapshot<UserData>> => {
   if (!user) return;
 
   const userRef = doc(db, "user", user.uid);
@@ -73,16 +90,22 @@ export const createUserDoc = async (user, addInfo = {}) => {
     }
   }
 
-  return userSnapShot;
+  return userSnapShot as QueryDocumentSnapshot<UserData>;
 };
 
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+export const signInAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
   if (!email || !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password);
@@ -90,10 +113,10 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
 export const signOutUser = async () => await signOut(auth);
 
-export const onAuthStateListner = (callback) =>
+export const onAuthStateListner = (callback: NextOrObserver<User>) =>
   onAuthStateChanged(auth, callback);
 
-export const getCurrentUser = () => {
+export const getCurrentUser = (): Promise<User | null> => {
   return new Promise((resolve, reject) => {
     const unsubscribe = onAuthStateChanged(
       auth,
@@ -107,10 +130,14 @@ export const getCurrentUser = () => {
   });
 };
 
-export const addCollectionAndDocuments = async (
-  collectionKey,
-  objectsToAdd
-) => {
+type ObjectsToAdd = {
+  title: string;
+};
+
+export const addCollectionAndDocuments = async <T extends ObjectsToAdd>(
+  collectionKey: string,
+  objectsToAdd: T[]
+): Promise<void> => {
   const collectionRef = collection(db, collectionKey);
 
   const batch = writeBatch(db);
@@ -124,16 +151,12 @@ export const addCollectionAndDocuments = async (
   console.log("Done");
 };
 
-export const getCollectionAndDocuments = async () => {
+export const getCategoriesCollection = async (): Promise<Category[]> => {
   const collectionRef = collection(db, "categories");
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((docSnapShot) => docSnapShot.data());
-
-  // .reduce((acc, docSnapshot) => {
-  //   const { title, items } = docSnapshot.data();
-  //   acc[title.toLowerCase()] = items;
-  //   return acc;
-  // }, {});
+  return querySnapshot.docs.map(
+    (docSnapShot) => docSnapShot.data() as Category
+  );
 };
