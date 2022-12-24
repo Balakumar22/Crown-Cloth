@@ -8,8 +8,14 @@ import {
   selectCartTotal,
 } from "../../store/cart/cart.selector";
 
-import "./checkout.styles.scss";
+// import "./checkout.styles.scss";
 import PaymentForm from "../../Components/PaymentForm/PaymentForm.component";
+import {
+  CheckoutContainer,
+  CheckoutHeader,
+  HeaderBlock,
+  Total,
+} from "./Checkout.style";
 
 const Checkout = () => {
   // const { cartItems } = useContext(CartContext);
@@ -17,32 +23,32 @@ const Checkout = () => {
   const cartTotal = useSelector(selectCartTotal);
 
   return (
-    <div className="checkout-container">
-      <div className="checkout-header">
-        <div className="header-block">
+    <CheckoutContainer>
+      <CheckoutHeader>
+        <HeaderBlock>
           <span>Product</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Description</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Quantity</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Price</span>
-        </div>
-        <div className="header-block">
+        </HeaderBlock>
+        <HeaderBlock>
           <span>Remove</span>
-        </div>
-      </div>
+        </HeaderBlock>
+      </CheckoutHeader>
       {cartItems.map((product, index) => (
         <CheckoutItem key={index} product={product} />
       ))}
-      <div className="total">
+      <Total>
         <span>TOTAL: ${cartTotal}</span>
-      </div>
+      </Total>
       <PaymentForm />
-    </div>
+    </CheckoutContainer>
   );
 };
 

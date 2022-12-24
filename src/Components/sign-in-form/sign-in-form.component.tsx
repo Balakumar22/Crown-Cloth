@@ -9,7 +9,8 @@ import {
 
 import Button, { BUTTON_TYPES } from "../Button/button.component";
 import FormInput from "../FormInput/FormInput.component";
-import "./sign-in-form.styles.scss";
+import { ButtonContainer, SignUpContainer } from "./sign-in-form.style";
+// import "./sign-in-form.styles.scss";
 
 const defualtFieldValues = {
   email: "",
@@ -63,7 +64,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="sign-up-container">
+    <SignUpContainer>
       <h2>Alreay Have account</h2>
       <span>Sign in with your Email and Password</span>
       <form onSubmit={handleSubmit}>
@@ -81,7 +82,7 @@ const SignIn = () => {
           name="password"
           value={password}
         />
-        <div className="buttons-container">
+        <ButtonContainer>
           <Button type="submit">Sign In</Button>
           <Button
             type="button"
@@ -90,9 +91,9 @@ const SignIn = () => {
           >
             Google Sign In
           </Button>
-        </div>
+        </ButtonContainer>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 

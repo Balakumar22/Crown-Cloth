@@ -5,7 +5,8 @@ import { signUpStart } from "../../store/user/user.action";
 
 import Button from "../Button/button.component";
 import FormInput from "../FormInput/FormInput.component";
-import "./sign-up-form.styles.scss";
+import { SignUpContainer } from "../sign-in-form/sign-in-form.style";
+// import "./sign-up-form.styles.scss";
 
 const defualtFieldValues = {
   displayName: "",
@@ -52,7 +53,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="sign-up-container">
+    <SignUpContainer>
       <h2>Don't Have accout?</h2>
       <span>Sign Up with your Email and Password</span>
       <form onSubmit={handleSubmit}>
@@ -86,7 +87,7 @@ const SignUp = () => {
         />
         <Button type="submit">Sign up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 

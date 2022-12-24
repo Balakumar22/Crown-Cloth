@@ -71,7 +71,10 @@ const reduceCartItemQuantity = (
   );
 };
 
-export const addItemToCart = (oldCartItems: CartItem[], product: CartItem) => {
+export const addItemToCart = (
+  oldCartItems: CartItem[],
+  product: CategoryItem
+) => {
   const cartItems = addCartItem(oldCartItems, product);
   return setCartItems(cartItems);
   // return createAction(ADD_CART_ITEM, cartItems);

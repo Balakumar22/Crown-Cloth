@@ -1,6 +1,8 @@
 import styled from "styled-components";
-
-export const BackgroundImage = styled.div`
+type BackgroundImageProps = {
+  imageUrl?: string;
+};
+export const BackgroundImage = styled.div<BackgroundImageProps>`
   width: 100%;
   height: 100%;
   background-size: cover;
@@ -19,14 +21,6 @@ export const Body = styled.div`
   background-color: white;
   opacity: 0.7;
   position: absolute;
-
-  h2 {
-    font-weight: bold;
-    margin: 0 6px 0;
-    font-size: 22px;
-    color: #4a4a4a;
-    text-transform: uppercase;
-  }
 
   p {
     font-weight: lighter;
@@ -66,6 +60,13 @@ min-width: 30%;
     }
 `;
 
+export const Title = styled.h2`
+  font-weight: bold;
+  margin: 0 6px 0;
+  font-size: 22px;
+  color: #4a4a4a;
+  text-transform: uppercase;
+`;
 // .directory-item-container {
 
 //   }

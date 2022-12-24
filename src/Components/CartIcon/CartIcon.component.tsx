@@ -1,11 +1,7 @@
 // import { useContext } from "react";
 // import { CartContext } from "../../context/cart.context";
 ///<reference types="react-script">
-import {
-  ShoppingBag,
-  CartIconContainer,
-  ItemCount,
-} from "./CartIcon.styles.jsx";
+import { ShoppingBag, CartIconContainer, ItemCount } from "./CartIcon.styles";
 import { setIsCartOpen } from "../../store/cart/cart.action";
 import {
   selectCartCount,

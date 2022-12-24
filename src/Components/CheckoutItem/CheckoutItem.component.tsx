@@ -1,5 +1,6 @@
 // import { useContext } from "react";
 // import { CartContext } from "../../context/cart.context";
+import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addItemToCart,
@@ -7,9 +8,20 @@ import {
   reduceQuantity,
 } from "../../store/cart/cart.action";
 import { selectCartItems } from "../../store/cart/cart.selector";
-import "./checkout-item.styles.scss";
+import { CartItem } from "../../store/cart/cart.types";
+// import "./checkout-item.styles.scss";
+import {
+  CheckoutItemContainer,
+  CheckoutItemImg,
+  CheckoutItemSpan,
+  ImageContainer,
+} from "./CheckoutItem.style";
 
-const CheckoutItem = ({ product }) => {
+type CheckoutItemProps = {
+  product: CartItem;
+};
+
+const CheckoutItem: FC<CheckoutItemProps> = ({ product }) => {
   // const { reduceQuantity, removeItemFromCart, addItemToCart } =
   //   useContext(CartContext);
 
@@ -26,12 +38,12 @@ const CheckoutItem = ({ product }) => {
   const removeProduct = () => dispatch(removeItemFromCart(cartItems, product));
 
   return (
-    <div className="checkout-item-container">
-      <div className="image-container">
-        <img src={imageUrl} alt={name} />
-      </div>
-      <span className="name">{name}</span>
-      <span className="quantity">
+    <CheckoutItemContainer>
+      <ImageContainer>
+        <CheckoutItemImg src={imageUrl} alt={name} />
+      </ImageContainer>
+      <CheckoutItemSpan>{name}</CheckoutItemSpan>
+      <CheckoutItemSpan className="quantity">
         <div className="icon" onClick={reduceProductQuantity}>
           &#10094;
         </div>
@@ -39,12 +51,12 @@ const CheckoutItem = ({ product }) => {
         <div className="icon" onClick={addQuantity}>
           &#10095;
         </div>
-      </span>
-      <span className="price">{price}</span>
+      </CheckoutItemSpan>
+      <CheckoutItemSpan>{price}</CheckoutItemSpan>
       <div className="remove-button" onClick={removeProduct}>
         &#10005;
       </div>
-    </div>
+    </CheckoutItemContainer>
   );
 };
 
